@@ -5,7 +5,10 @@ import { interopDefault, requirePlugin, tryRequire } from '../utils'
 describe('interopDefault', () => {
   test('returns mod.default when it exists', () => {
     const inner = { rules: { foo: 'bar' } }
-    const mod = { default: inner, __esModule: true }
+    const mod = {
+      default: inner,
+      __esModule: true,
+    }
     expect(interopDefault(mod as unknown as Record<string, unknown>)).toBe(inner)
   })
 
@@ -15,7 +18,10 @@ describe('interopDefault', () => {
   })
 
   test('returns mod when default is undefined', () => {
-    const mod = { default: undefined, rules: {} }
+    const mod = {
+      default: undefined,
+      rules: {},
+    }
     expect(interopDefault(mod as unknown as Record<string, unknown>)).toBe(mod)
   })
 })
