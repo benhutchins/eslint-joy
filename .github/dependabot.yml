@@ -1,0 +1,24 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      eslint-plugins:
+        patterns:
+          - "@stylistic/eslint-plugin"
+          - "@typescript-eslint/*"
+          - "eslint-plugin-*"
+          - "@next/eslint-plugin-next"
+          - "eslint"
+      dev-dependencies:
+        dependency-type: development
+        exclude-patterns:
+          - "semantic-release"
+          - "@semantic-release/*"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

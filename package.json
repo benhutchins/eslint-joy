@@ -1,0 +1,79 @@
+{
+  "name": "@benhutchins/eslint-joy",
+  "version": "0.0.0-semantically-released",
+  "description": "Opinionated ESLint flat config with TypeScript, React, and Next.js presets",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "prepublishOnly": "bun run build",
+    "lint": "eslint .",
+    "test": "bun test",
+    "test:coverage": "bun test --coverage"
+  },
+  "peerDependencies": {
+    "eslint": ">=9.0.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "@next/eslint-plugin-next": "^14.0.0 || ^15.0.0",
+    "eslint-plugin-n": "^17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "eslint-plugin-react": { "optional": true },
+    "eslint-plugin-react-hooks": { "optional": true },
+    "@next/eslint-plugin-next": { "optional": true },
+    "eslint-plugin-n": { "optional": true }
+  },
+  "dependencies": {
+    "@stylistic/eslint-plugin": "^4.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint-plugin-import-x": "^4.0.0",
+    "eslint-plugin-simple-import-sort": "^12.0.0",
+    "eslint-plugin-unused-imports": "^4.0.0"
+  },
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.0",
+    "@types/node": "^25.6.0",
+    "eslint-plugin-react": "^7.37.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "@next/eslint-plugin-next": "^15.0.0",
+    "eslint-plugin-n": "^17.0.0",
+    "jiti": "^2.6.1",
+    "semantic-release": "^25.0.3",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "eslint",
+    "eslint-config",
+    "flat-config",
+    "typescript",
+    "react",
+    "nextjs",
+    "opinionated"
+  ],
+  "author": "Benjamin Hutchins",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benhutchins/eslint-joy"
+  }
+}
