@@ -1,6 +1,6 @@
 {
   "name": "@benhutchins/eslint-joy",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Opinionated ESLint flat config with TypeScript, React, and Next.js presets",
   "type": "module",
   "main": "./dist/index.js",
