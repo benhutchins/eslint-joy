@@ -27,7 +27,7 @@
   "peerDependencies": {
     "eslint": ">=9.0.0",
     "eslint-plugin-react": "^7.37.0",
-    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "@next/eslint-plugin-next": "^14.0.0 || ^15.0.0",
     "eslint-plugin-n": "^17.0.0"
   },
@@ -54,19 +54,19 @@
     "eslint-plugin-unused-imports": "^4.0.0"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^15.0.0",
+    "@next/eslint-plugin-next": "^16.2.3",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.0",
     "@types/node": "^25.6.0",
     "eslint-plugin-n": "^17.0.0",
     "eslint-plugin-react": "^7.37.0",
-    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
     "semantic-release": "^25.0.3",
     "tsup": "^8.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^6.0.2"
   },
   "keywords": [
     "eslint",
