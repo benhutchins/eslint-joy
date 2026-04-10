@@ -61,7 +61,7 @@ const stylisticRules: Linter.RulesRecord = {
   '@stylistic/no-trailing-spaces': 'error',
   '@stylistic/no-multi-spaces': 'error',
   '@stylistic/eol-last': ['error', 'always'],
-  '@stylistic/func-call-spacing': ['error', 'never'],
+  '@stylistic/function-call-spacing': ['error', 'never'],
   '@stylistic/spaced-comment': ['error', 'always', {
     markers: ['/'],
   }],
