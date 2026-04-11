@@ -250,7 +250,40 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
       parserOptions.tsconfigRootDir = tsconfigRootDir
     }
 
-    // Base TypeScript config — no type information required
+    const tsRules: Linter.RulesRecord = {
+      // Disable base rules that TS plugin replaces
+      'no-unused-vars': 'off',
+      'no-redeclare': 'off',
+      'no-dupe-class-members': 'off',
+      'no-useless-constructor': 'off',
+      camelcase: 'off',
+
+      // TypeScript rules (no type info required)
+      '@typescript-eslint/no-unused-vars': ['error', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      }],
+      '@typescript-eslint/consistent-type-imports': ['error', {
+        prefer: 'type-imports',
+        fixStyle: 'inline-type-imports',
+      }],
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-non-null-assertion': 'warn',
+      '@typescript-eslint/no-redeclare': 'error',
+      '@typescript-eslint/no-dupe-class-members': 'error',
+      '@typescript-eslint/no-useless-constructor': 'error',
+    }
+
+    if (typeAwareEnabled) {
+      Object.assign(tsRules, {
+        'no-throw-literal': 'off',
+        'no-implied-eval': 'off',
+        '@typescript-eslint/only-throw-error': 'error',
+        '@typescript-eslint/no-implied-eval': 'error',
+        '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+      })
+    }
+
     configs.push({
       files: ['**/*.ts', '**/*.tsx'],
       languageOptions: {
@@ -260,44 +293,8 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
       plugins: {
         '@typescript-eslint': tsPlugin as unknown as Record<string, unknown>,
       },
-      rules: {
-        // Disable base rules that TS plugin replaces
-        'no-unused-vars': 'off',
-        'no-redeclare': 'off',
-        'no-dupe-class-members': 'off',
-        'no-useless-constructor': 'off',
-        camelcase: 'off',
-
-        // TypeScript rules (no type info required)
-        '@typescript-eslint/no-unused-vars': ['error', {
-          argsIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-        }],
-        '@typescript-eslint/consistent-type-imports': ['error', {
-          prefer: 'type-imports',
-          fixStyle: 'inline-type-imports',
-        }],
-        '@typescript-eslint/no-explicit-any': 'warn',
-        '@typescript-eslint/no-non-null-assertion': 'warn',
-        '@typescript-eslint/no-redeclare': 'error',
-        '@typescript-eslint/no-dupe-class-members': 'error',
-        '@typescript-eslint/no-useless-constructor': 'error',
-      },
+      rules: tsRules,
     })
-
-    if (typeAwareEnabled) {
-      // Type-aware rules — require type information from the TS project
-      configs.push({
-        files: ['**/*.ts', '**/*.tsx'],
-        rules: {
-          'no-throw-literal': 'off',
-          'no-implied-eval': 'off',
-          '@typescript-eslint/only-throw-error': 'error',
-          '@typescript-eslint/no-implied-eval': 'error',
-          '@typescript-eslint/prefer-nullish-coalescing': 'warn',
-        },
-      })
-    }
   }
 
   return configs
