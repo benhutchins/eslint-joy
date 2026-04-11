@@ -219,7 +219,7 @@ const baseRules: Linter.RulesRecord = {
 }
 
 export function base (options: BaseOptions = {}): Linter.Config[] {
-  const { typescript = true, tsconfigRootDir } = options
+  const { typescript = true } = options
 
   const configs: Linter.Config[] = [
     {
@@ -235,6 +235,7 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
   ]
 
   if (typescript) {
+    // Base TypeScript config — no type information required
     configs.push({
       files: ['**/*.ts', '**/*.tsx'],
       languageOptions: {
@@ -242,8 +243,6 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
         parserOptions: {
           ecmaVersion: 'latest',
           sourceType: 'module',
-          projectService: true,
-          ...(tsconfigRootDir ? { tsconfigRootDir } : {}),
         },
       },
       plugins: {
@@ -255,11 +254,9 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
         'no-redeclare': 'off',
         'no-dupe-class-members': 'off',
         'no-useless-constructor': 'off',
-        'no-throw-literal': 'off',
-        'no-implied-eval': 'off',
         camelcase: 'off',
 
-        // TypeScript rules
+        // TypeScript rules (syntax-only, no type info needed)
         '@typescript-eslint/no-unused-vars': ['error', {
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
@@ -270,14 +267,9 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
         }],
         '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/no-non-null-assertion': 'warn',
-        '@typescript-eslint/prefer-optional-chain': 'error',
-        '@typescript-eslint/prefer-nullish-coalescing': 'warn',
         '@typescript-eslint/no-redeclare': 'error',
         '@typescript-eslint/no-dupe-class-members': 'error',
         '@typescript-eslint/no-useless-constructor': 'error',
-        '@typescript-eslint/only-throw-error': 'error',
-        '@typescript-eslint/no-implied-eval': 'error',
-        '@typescript-eslint/switch-exhaustiveness-check': 'error',
       },
     })
   }
