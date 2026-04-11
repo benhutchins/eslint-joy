@@ -16,6 +16,7 @@ export default function joy (options: JoyOptions = {}): Linter.Config[] {
     node: useNode = false,
     cycles = true,
     tsconfigRootDir,
+    project,
     ignores: extraIgnores = [],
     overrides = [],
   } = options
@@ -25,6 +26,7 @@ export default function joy (options: JoyOptions = {}): Linter.Config[] {
     ...base({
       typescript,
       tsconfigRootDir,
+      project,
     }),
     ...imports({
       cycles,

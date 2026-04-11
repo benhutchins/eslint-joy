@@ -1,3 +1,5 @@
 import joy from './src/index'
 
-export default joy()
+export default joy({
+  project: './tsconfig.eslint.json',
+})

@@ -6,6 +6,7 @@ import type { Linter } from 'eslint'
 export interface BaseOptions {
   typescript?: boolean
   tsconfigRootDir?: string
+  project?: string | string[] | boolean
 }
 
 const stylisticRules: Linter.RulesRecord = {
@@ -219,7 +220,7 @@ const baseRules: Linter.RulesRecord = {
 }
 
 export function base (options: BaseOptions = {}): Linter.Config[] {
-  const { typescript = true } = options
+  const { typescript = true, tsconfigRootDir, project } = options
 
   const configs: Linter.Config[] = [
     {
@@ -235,15 +236,26 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
   ]
 
   if (typescript) {
+    const typeAwareEnabled = project !== false
+    const parserOptions: Record<string, unknown> = {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+    }
+    if (project !== undefined && project !== false) {
+      parserOptions.project = project
+    } else if (typeAwareEnabled) {
+      parserOptions.projectService = true
+    }
+    if (tsconfigRootDir !== undefined) {
+      parserOptions.tsconfigRootDir = tsconfigRootDir
+    }
+
     // Base TypeScript config — no type information required
     configs.push({
       files: ['**/*.ts', '**/*.tsx'],
       languageOptions: {
         parser: tsParser as Linter.Parser,
-        parserOptions: {
-          ecmaVersion: 'latest',
-          sourceType: 'module',
-        },
+        parserOptions,
       },
       plugins: {
         '@typescript-eslint': tsPlugin as unknown as Record<string, unknown>,
@@ -256,7 +268,7 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
         'no-useless-constructor': 'off',
         camelcase: 'off',
 
-        // TypeScript rules (syntax-only, no type info needed)
+        // TypeScript rules (no type info required)
         '@typescript-eslint/no-unused-vars': ['error', {
           argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
@@ -272,6 +284,20 @@ export function base (options: BaseOptions = {}): Linter.Config[] {
         '@typescript-eslint/no-useless-constructor': 'error',
       },
     })
+
+    if (typeAwareEnabled) {
+      // Type-aware rules — require type information from the TS project
+      configs.push({
+        files: ['**/*.ts', '**/*.tsx'],
+        rules: {
+          'no-throw-literal': 'off',
+          'no-implied-eval': 'off',
+          '@typescript-eslint/only-throw-error': 'error',
+          '@typescript-eslint/no-implied-eval': 'error',
+          '@typescript-eslint/prefer-nullish-coalescing': 'warn',
+        },
+      })
+    }
   }
 
   return configs

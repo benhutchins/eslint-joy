@@ -13,6 +13,8 @@ export interface JoyOptions {
   cycles?: boolean
   /** Root directory for TypeScript project resolution (helps monorepo setups) */
   tsconfigRootDir?: string
+  /** Explicit tsconfig path(s) for type-aware linting. When omitted, projectService auto-discovery is used. */
+  project?: string | string[] | boolean
   /** Additional glob patterns to ignore (merged with defaults) */
   ignores?: string[]
   /** Additional config objects appended last (project-specific overrides) */

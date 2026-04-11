@@ -1,5 +1,8 @@
 import { createRequire } from 'node:module'
 
+// `tsup`'s `shims: true` option provides `import.meta.url` in the CJS build,
+// so resolving from this module's location works in both ESM and CJS and lets
+// Node walk `node_modules` normally.
 const _require = createRequire(import.meta.url)
 
 /**
